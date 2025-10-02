@@ -14,8 +14,10 @@ public class CookieUtil {
     public void write(HttpServletResponse resp, String name, String value, int maxAgeSeconds) {
         Cookie c = new Cookie(name, value);
         c.setHttpOnly(true);
-        c.setSecure(false);      // 本地是 http，不能 true
+        c.setSecure(true);      // 本地是 http，不能 true
         c.setPath("/");
+        c.setDomain("galend-190601-4-1381277403.sh.run.tcloudbase.com");
+        c.setAttribute("SameSite", "None");  // 需要 Servlet 6+
         c.setMaxAge(maxAgeSeconds);
         // 如果用 Servlet 6 想显式 SameSite，可自己拼 Set-Cookie 头；默认 Lax 即可
         resp.addCookie(c);
@@ -31,3 +33,4 @@ public class CookieUtil {
         }
     }
 }
+
